@@ -1,0 +1,28 @@
+server:
+  port: ${SERVER_PORT:8081}
+
+spring:
+  application:
+    name: yhm-vet-registration
+  datasource:
+    url: jdbc:mysql://127.0.0.1:${MYSQL_PORT:3306}/${MYSQL_DATABASE:vet_registration}
+    username: ${MYSQL_USER:vet_registration}
+    password: ${MYSQL_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+  instance:
+    prefer-ip-address: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: '!local'
+    import: 'optional:file:./.env[.properties]'
